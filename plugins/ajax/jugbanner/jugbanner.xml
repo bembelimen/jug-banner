@@ -9,6 +9,9 @@
 	<authorUrl>www.wicked-software.de</authorUrl>
 	<version>1.0.0</version>
 	<description>PLG_AJAX_JUGBANNER_XML_DESCRIPTION</description>
+	<updateservers>
+		<server type="extension">https://raw.githubusercontent.com/bembelimen/jug-banner/master/plugins/ajax/jugbanner/updateserver.xml</server>
+	</updateservers>
 	<files>
 		<filename plugin="jugbanner">jugbanner.php</filename>
 	</files>

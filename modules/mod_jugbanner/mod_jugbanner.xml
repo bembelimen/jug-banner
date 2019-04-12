@@ -9,6 +9,9 @@
 	<authorUrl>www.wicked-software.de</authorUrl>
 	<version>1.0.0</version>
 	<description>MOD_JUGBANNER_XML_DESCRIPTION</description>
+	<updateservers>
+		<server type="extension">https://raw.githubusercontent.com/bembelimen/jug-banner/master/modules/mod_jugbanner/updateserver.xml</server>
+	</updateservers>
 	<files>
 		<filename module="mod_jugbanner">mod_jugbanner.php</filename>
 		<folder>tmpl</folder>
