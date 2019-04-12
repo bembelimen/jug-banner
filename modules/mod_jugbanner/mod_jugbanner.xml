@@ -2,7 +2,7 @@
 <extension type="module" version="3.8" client="site" method="upgrade">
 	<name>mod_jugbanner</name>
 	<author>Benjamin Trenkle</author>
-	<creationDate>September 2019</creationDate>
+	<creationDate>April 2019</creationDate>
 	<copyright>Copyright (C) 2019 Benjamin Trenkle. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>benjamin@wicked-software.de</authorEmail>
