@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="ajax" method="upgrade">
+	<name>plg_ajax_jugbanner</name>
+	<author>Benjamin Trenkle</author>
+	<creationDate>April 2019</creationDate>
+	<copyright>Copyright (C) 2019 Benjamin Trenkle. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>benjamin.trenkle@wicked-software.de</authorEmail>
+	<authorUrl>www.wicked-software.de</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_AJAX_JUGBANNER_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="jugbanner">jugbanner.php</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_ajax_jugbanner.ini</language>
+		<language tag="en-GB">en-GB.plg_ajax_jugbanner.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/plugins/ajax/jugbanner/fields">
+				<field
+					name="catid"
+					type="category"
+					label="PLG_AJAX_JUGBANNER_FIELD_CATID_LABEL"
+					description="PLG_AJAX_JUGBANNER_FIELD_CATID_DESC"
+					filter="options"
+					required="true"
+					multiple="true"
+					extension="com_banners"
+				/>
+				<field
+					name="information"
+					type="hashinfo"
+					label="PLG_AJAX_JUGBANNER_FIELD_INFO_LABEL"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
