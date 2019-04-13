@@ -10,14 +10,14 @@
 	<version>1.0.0</version>
 	<description>PLG_AJAX_JUGBANNER_XML_DESCRIPTION</description>
 	<updateservers>
-		<server type="extension">https://raw.githubusercontent.com/bembelimen/jug-banner/master/plugins/ajax/jugbanner/updateserver.xml</server>
+		<server type="extension" name="plg_ajax_jugbanner">https://raw.githubusercontent.com/bembelimen/jug-banner/updateservers/plg_ajax_jugbanner.xml</server>
 	</updateservers>
 	<files>
 		<filename plugin="jugbanner">jugbanner.php</filename>
 	</files>
-	<languages>
-		<language tag="en-GB">en-GB.plg_ajax_jugbanner.ini</language>
-		<language tag="en-GB">en-GB.plg_ajax_jugbanner.sys.ini</language>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_ajax_jugbanner.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_ajax_jugbanner.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
