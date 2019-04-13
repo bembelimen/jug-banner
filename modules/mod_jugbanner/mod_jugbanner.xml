@@ -10,7 +10,7 @@
 	<version>1.0.1</version>
 	<description>MOD_JUGBANNER_XML_DESCRIPTION</description>
 	<updateservers>
-		<server type="extension" name="mod_jugbanner">https://raw.githubusercontent.com/bembelimen/jug-banner/updateservers/mod_jugbanner.xml</server>
+		<server type="extension" name="mod_jugbanner">https://raw.githubusercontent.com/bembelimen/jug-banner/master/updateservers/mod_jugbanner.xml</server>
 	</updateservers>
 	<files>
 		<filename module="mod_jugbanner">mod_jugbanner.php</filename>
