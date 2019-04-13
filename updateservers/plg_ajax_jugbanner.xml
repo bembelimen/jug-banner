@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+  <update>
+    <name>plg_ajax_jugbanner</name>
+    <description>Share banners from a global entry point.</description>
+    <element>plg_ajax_jugbanner</element>
+    <type>plugin</type>
+    <version>1.0.0</version>
+    <downloads>
+      <downloadurl type="full" format="zip">https://github.com/bembelimen/jug-banner/releases/download/v1.0/plg_ajax_jugbanner.zip</downloadurl>
+    </downloads>
+    <targetplatform name="joomla" version="3.([9]|10)"/>
+  </update>
+</updates>
