@@ -6,6 +6,7 @@
     <element>mod_jugbanner</element>
     <type>module</type>
     <version>1.0.2</version>
+    <client_id>0</client_id>
     <downloads>
       <downloadurl type="full" format="zip">https://github.com/bembelimen/jug-banner/releases/download/v1.0.1/mod_jugbanner.zip</downloadurl>
     </downloads>
