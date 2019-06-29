@@ -26,7 +26,7 @@ class ModJugbannerHelper
 
 	protected static $verificationurl = 'https://www.example.com/?option=com_ajax&format=raw&plugin=BannerHash';
 
-	protected static $banners = __DIR__ . '/banners/';
+	protected static $banners = JPATH_ROOT . '/images';
 
 	protected static $hash = 'sha512';
 
@@ -41,12 +41,16 @@ class ModJugbannerHelper
 			return $result;
 		}
 
+		$hash = md5((string) $params);
+
+		$bannerpath = Path::check(self::$banners . '/' . $params->get('folder') . '/' . $hash);
+
 		foreach ($xml->children() as $banner)
 		{
-			if (is_file(static::$banners . $banner->image))
+			if (is_file($bannerpath . '/' . $banner->image))
 			{
 				$result[] = (object) [
-					'image' => Uri::root() . '/modules/mod_jugbanner/banners/' . (string) $banner->image,
+					'image' => 'images/' . $params->get('folder') . '/' . $hash .'/' . (string) $banner->image,
 					'link' => (string) $banner->link
 				];
 			}
@@ -57,17 +61,19 @@ class ModJugbannerHelper
 
 	private static function getXml($params)
 	{
-		$xml = static::$banners . 'banners.xml';
+		$hash = md5((string) $params);
+
+		$xml = self::$banners . '/' . $params->get('folder') . '/' . $hash . '/banners.xml';
 
 		$now = Factory::getDate()->toUnix();
 
-		$updatetime = (int) $params->get('updateinterval', 3600);
+		$updatetime = (int) $params->get('updateinterval');
 
 		$xmlcontent = false;
 
 		$file_exists = is_file($xml);
 
-		$lastchange = $file_exists && filemtime($xml);
+		$lastchange = $file_exists ? filemtime($xml) : 0;
 
 		if (!$file_exists || ((int) $lastchange > 0 && (int) $updatetime > 0 && $now - $updatetime > $lastchange))
 		{
@@ -86,15 +92,53 @@ class ModJugbannerHelper
 	{
 		try
 		{
+			$hash = md5((string) $params);
+
+			$bannerpath = self::$banners . '/' . $params->get('folder') . '/' . $hash;
+
 			$http = HttpFactory::getHttp();
 
-			$content = $http->get(static::$bannerurl);
+			$data = [];
+
+			if (is_array($params->get('events')))
+			{
+				$data['events'] = [];
+
+				foreach ($params->get('events') as $event)
+				{
+					switch ($event)
+					{
+						case 'jday_dach':
+						case 'jday_int':
+						case 'conferences':
+						case 'pbf':
+						case 'misc':
+							$data['events'][] = $event;
+					}
+				}
+			}
+
+			switch ($params->get('size'))
+			{
+				case 'large':
+				case 'small':
+				case 'squared':
+					$data['size'] = $params->get('size');
+					break;
+
+				default:
+					$data['size'] = 'default';
+			}
+
+			$data['num_banners'] = min(max(1, (int) $params->get('num_banners')), 10);
+
+			$content = $http->post(static::$bannerurl, $data);
 
 			$valid = true;
 
 			if ($params->get('verifyfile', 1))
 			{
-				$verify = $http->get(self::$verificationurl);
+				$verify = $http->post(self::$verificationurl, $data);
 
 				$valid = $verify->code == 200 && $content->code == 200 && hash(static::$hash, $content->body) == $verify->body;
 			}
@@ -103,12 +147,12 @@ class ModJugbannerHelper
 			{
 				$xml = simplexml_load_string($content->body);
 
-				if (is_dir(static::$banners))
+				if (is_dir($bannerpath))
 				{
-					Folder::delete(static::$banners);
+					Folder::delete($bannerpath);
 				}
 
-				Folder::create(static::$banners);
+				Folder::create($bannerpath);
 
 				$banners = [];
 
@@ -149,7 +193,7 @@ class ModJugbannerHelper
 
 					$img = new Image($res);
 
-					$path = Path::check(static::$banners . $filename);
+					$path = Path::check($bannerpath . '/' . $filename);
 
 					if ($img->toFile($path, $type))
 					{
@@ -170,7 +214,7 @@ class ModJugbannerHelper
 					$bxml->addChild('link', $banner->link);
 				}
 
-				$newxml->asXML(static::$banners . 'banners.xml');
+				$newxml->asXML($bannerpath . '/' . 'banners.xml');
 			}
 
 		} catch (Exception $ex) {

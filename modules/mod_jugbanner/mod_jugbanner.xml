@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="3.8" client="site" method="upgrade">
+<extension type="module" version="3.9" client="site" method="upgrade">
 	<name>mod_jugbanner</name>
 	<author>Benjamin Trenkle</author>
 	<creationDate>April 2019</creationDate>
@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>benjamin@wicked-software.de</authorEmail>
 	<authorUrl>www.wicked-software.de</authorUrl>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<description>MOD_JUGBANNER_XML_DESCRIPTION</description>
 	<updateservers>
 		<server type="extension" name="mod_jugbanner">https://raw.githubusercontent.com/bembelimen/jug-banner/master/updateservers/mod_jugbanner.xml</server>
@@ -26,17 +26,54 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<!-- <field
+				<field
 					type="list"
-					name="categories"
+					name="events"
+					label="MOD_JUGBANNER_EVENTS_LABEL"
 					multiple="true"
 					required="true"
+					validate="options"
+					default=""
 				>
-					<option value="1">Events Deutschland</option>
-					<option value="2">Events Österreich</option>
-					<option value="3">Events Schweiz</option>
-					<option value="4">Events International</option>
-				</field> -->
+					<option value="">MOD_JUGBANNER_EVENTS_OPTION_ALL</option>
+					<option value="jday_dach">MOD_JUGBANNER_EVENTS_OPTION_JOOMLADAY_DACH</option>
+					<option value="jday_int">MOD_JUGBANNER_EVENTS_OPTION_JOOMLADAY_INTERNATIONAL</option>
+					<option value="conferences">MOD_JUGBANNER_EVENTS_OPTION_CONFERENCES</option>
+					<option value="pbf">MOD_JUGBANNER_EVENTS_OPTION_PBF</option>
+					<option value="misc">MOD_JUGBANNER_EVENTS_OPTION_MISC</option>
+				</field>
+				<field
+					type="list"
+					name="size"
+					label="MOD_JUGBANNER_SIZE_LABEL"
+					default="default"
+					validate="options"
+					required="true"
+				>
+					<option value="large">MOD_JUGBANNER_SIZE_OPTION_LARGE</option>
+					<option value="default">MOD_JUGBANNER_SIZE_OPTION_DEFAULT</option>
+					<option value="small">MOD_JUGBANNER_SIZE_OPTION_SMALL</option>
+					<option value="squared">MOD_JUGBANNER_SIZE_OPTION_SQUARED</option>
+				</field>
+				<field
+					type="integer"
+					name="num_banners"
+					label="MOD_JUGBANNER_NUM_BANNERS_LABEL"
+					first="1"
+					last="10"
+					step="1"
+					default="5"
+					filter="integer"
+					validate="options"
+					required="true"
+				/>
+				<field
+					type="folderlist"
+					label="MOD_JUGBANNER_FOLDER_LABEL"
+					name="folder"
+					directory="images"
+					hide_none="true"
+				/>
 			</fieldset>
 			<fieldset name="advanced">
 				<field

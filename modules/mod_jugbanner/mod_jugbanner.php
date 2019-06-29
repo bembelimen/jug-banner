@@ -17,6 +17,15 @@ $params->def('verifyfile', 1);
 // Seconds after new file should be loaded from the server
 $params->def('updateinterval', 86400);
 
+// Loaded events
+$params->def('events', []);
+
+// Number of loaded banners
+$params->def('num_banners', 5);
+
+// Default image folder, banners are saved to
+$params->def('folder', 'jugbanner');
+
 $cacheid = md5($module->id);
 
 $cacheparams               = new stdClass;
@@ -30,6 +39,6 @@ $banners = ModuleHelper::moduleCache($module, $params, $cacheparams);
 
 HTMLHelper::_('stylesheet', 'mod_jugbanner/jugbanner.css', ['relative' => true]);
 
-$layout           = $params->get('layout', 'default');
+$layout = $params->get('layout', 'default');
 
 require JModuleHelper::getLayoutPath('mod_jugbanner', $layout);
