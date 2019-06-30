@@ -6,14 +6,11 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\Filesystem\File;
-use Joomla\Filesystem\Path;
-use Joomla\Filesystem\Folder;
-use Joomla\CMS\Uri\Uri;
-use Joomla\Uri\UriHelper;
-use Joomla\Image\Image;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Http\HttpFactory;
+use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\Path;
+use Joomla\Image\Image;
 
 /**
  * Helper for mod_jugbanner
@@ -132,7 +129,7 @@ class ModJugbannerHelper
 
 			$data['num_banners'] = min(max(1, (int) $params->get('num_banners')), 10);
 
-			$content = $http->post(static::$bannerurl, $data);
+			$content = $http->post(static::$bannerurl, ['jugbanner' => $data]);
 
 			$valid = true;
 

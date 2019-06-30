@@ -14,6 +14,7 @@
 	</updateservers>
 	<files>
 		<filename module="mod_jugbanner">mod_jugbanner.php</filename>
+		<folder>language</folder>
 		<folder>tmpl</folder>
 		<filename>helper.php</filename>
 	</files>
@@ -50,9 +51,8 @@
 					validate="options"
 					required="true"
 				>
-					<option value="large">MOD_JUGBANNER_SIZE_OPTION_LARGE</option>
 					<option value="default">MOD_JUGBANNER_SIZE_OPTION_DEFAULT</option>
-					<option value="small">MOD_JUGBANNER_SIZE_OPTION_SMALL</option>
+					<option value="edgewise">MOD_JUGBANNER_SIZE_OPTION_EDGEWISE</option>
 					<option value="squared">MOD_JUGBANNER_SIZE_OPTION_SQUARED</option>
 				</field>
 				<field

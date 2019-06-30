@@ -14,14 +14,12 @@
 	</updateservers>
 	<files>
 		<filename plugin="jugbanner">jugbanner.php</filename>
+		<folder>language</folder>
 	</files>
-	<languages folder="language">
-		<language tag="en-GB">en-GB/en-GB.plg_ajax_jugbanner.ini</language>
-		<language tag="en-GB">en-GB/en-GB.plg_ajax_jugbanner.sys.ini</language>
-	</languages>
+
 	<config>
 		<fields name="params">
-			<fieldset name="basic" addfieldpath="/plugins/ajax/jugbanner/fields">
+			<fieldset name="basic" addfieldpath="/administrator/components/com_banners/models/fields">
 				<field
 					name="catid"
 					type="category"
@@ -33,9 +31,29 @@
 					extension="com_banners"
 				/>
 				<field
-					name="information"
-					type="hashinfo"
-					label="PLG_AJAX_JUGBANNER_FIELD_INFO_LABEL"
+					name="event_jday_dach"
+					type="bannerclient"
+					label="PLG_AJAX_JUGBANNER_FIELD_EVENT_JDAY_DACH_LABEL"
+				/>
+				<field
+					name="event_jday_int"
+					type="bannerclient"
+					label="PLG_AJAX_JUGBANNER_FIELD_EVENT_JDAY_INT_LABEL"
+				/>
+				<field
+					name="event_conferences"
+					type="bannerclient"
+					label="PLG_AJAX_JUGBANNER_FIELD_EVENT_CONFERENCES_LABEL"
+				/>
+				<field
+					name="event_pbf"
+					type="bannerclient"
+					label="PLG_AJAX_JUGBANNER_FIELD_EVENT_PBF_LABEL"
+				/>
+				<field
+					name="event_misc"
+					type="bannerclient"
+					label="PLG_AJAX_JUGBANNER_FIELD_EVENT_MISC_LABEL"
 				/>
 			</fieldset>
 		</fields>

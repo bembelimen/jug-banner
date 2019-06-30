@@ -6,13 +6,14 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Cache\Cache;
-use Joomla\Registry\Registry;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Path;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
 
 class plgAjaxJugbanner extends CMSPlugin
 {
@@ -34,16 +35,19 @@ class plgAjaxJugbanner extends CMSPlugin
 
 	protected function getXml()
 	{
+		$jugbanner = Factory::getApplication()->input->get('jugbanner', [], 'array');
+
 		$options = [
-			'lifetime' => 60,
 			'storage' => Factory::getApplication()->get('cache_handler', 'file'),
-			'defaultgroup' => 'jugbanner',
-			'caching' => true
+			'defaultgroup' => 'jugbanner'
 		];
 
 		$cache = Cache::getInstance('callback', $options);
 
-		$xml = $cache->get('plgAjaxJugbanner::generateXml', [$this->params]);
+		// We need our own cache ID, because the cache is also based on the given parameters
+		$id = md5(serialize(array('plgAjaxJugbanner::generateXml', [$this->params], $jugbanner)));
+
+		$xml = $cache->get('plgAjaxJugbanner::generateXml', [$this->params], $id);
 
 		return $xml;
 	}
@@ -52,12 +56,102 @@ class plgAjaxJugbanner extends CMSPlugin
 	{
 		BaseDatabaseModel::addIncludePath(JPATH_ROOT . '/components/com_banners/models', 'BannersModel');
 
-		$model = BaseDatabaseModel::getInstance('Banners', 'BannersModel', ['ignore_request' => true]);
+		$jugbanner = Factory::getApplication()->input->get('jugbanner', [], 'array');
 
-		$model->setState('filter.published', 1);
-		$model->setState('filter.category_id', (array) $params->get('catid', []));
+		$events = ArrayHelper::getValue($jugbanner, 'events', [], 'array');
 
-		return $model->getItems();
+		$client_ids = [];
+
+		foreach ($events as $event)
+		{
+			if ($params->exists('event_' . $event))
+			{
+				$client_ids[] = (int) $params->get('event_' . $event);
+			}
+		}
+
+		$client_ids = array_unique(array_filter($client_ids));
+
+		// We break when the user requested specific events which does not exists anymore
+		// Otherwise events from not selected clients will be displayed
+		if (empty($client_ids) && !empty($events))
+		{
+			return [];
+		}
+
+		$cat_ids = (array) $params->get('catid', [0]);
+		$cat_ids = ArrayHelper::toInteger($cat_ids);
+		$cat_ids = array_unique(array_filter($cat_ids));
+
+		if (empty($cat_ids))
+		{
+			return [];
+		}
+
+		$list_limit = min(10, max(1, ArrayHelper::getValue($jugbanner, 'num_banners', 5, 'int')));
+
+		$banners = [];
+
+		do
+		{
+			$model = BaseDatabaseModel::getInstance('Banners', 'BannersModel', ['ignore_request' => true]);
+
+			$model->setState('list.limit', $list_limit);
+			$model->setState('filter.published', 1);
+			$model->setState('filter.category_id', $cat_ids);
+
+			$client_id = 0;
+
+			if (count($client_ids))
+			{
+				$client_id = (int) array_shift($client_ids);
+			}
+
+			$model->setState('filter.client_id', $client_id);
+
+			$temp = $model->getItems();
+
+			$banners = array_merge($banners, $temp);
+
+		} while(count($client_ids) > 0 && $client_id > 0);
+
+		$result = [];
+
+		$size = ArrayHelper::getValue($jugbanner, 'size');
+
+		foreach ($banners as $banner)
+		{
+			if (isset($result[$banner->id]))
+			{
+				continue;
+			}
+
+			switch ($size)
+			{
+				case 'squared':
+					if ($banner->params->get('width') > 0 && $banner->params->get('width') == $banner->params->get('height'))
+					{
+						$result[$banner->id] = $banner;
+					}
+					break;
+
+				case 'edgewise':
+					if ($banner->params->get('width') < $banner->params->get('height'))
+					{
+						$result[$banner->id] = $banner;
+					}
+					break;
+
+				default:
+					if ($banner->params->get('width') == 0 || $banner->params->get('width') > $banner->params->get('height'))
+					{
+						$result[$banner->id] = $banner;
+					}
+					break;
+			}
+		}
+
+		return $result;
 	}
 
 	/**
