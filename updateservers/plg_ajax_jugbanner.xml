@@ -5,6 +5,7 @@
     <description>Share banners from a global entry point.</description>
     <element>plg_ajax_jugbanner</element>
     <type>plugin</type>
+    <folder>ajax</folder>
     <version>1.0.1</version>
     <downloads>
       <downloadurl type="full" format="zip">https://github.com/bembelimen/jug-banner/releases/download/v1.0.1/plg_ajax_jugbanner.zip</downloadurl>
