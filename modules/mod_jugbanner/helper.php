@@ -19,9 +19,9 @@ use Joomla\Image\Image;
  */
 class ModJugbannerHelper
 {
-	protected static $bannerurl = 'https://www.example.com/?option=com_ajax&format=raw&plugin=BannerList';
+	protected static $bannerurl = 'https://www.joomla.de/?option=com_ajax&format=raw&plugin=BannerList';
 
-	protected static $verificationurl = 'https://www.example.com/?option=com_ajax&format=raw&plugin=BannerHash';
+	protected static $verificationurl = 'https://www.joomla.de/?option=com_ajax&format=raw&plugin=BannerHash';
 
 	protected static $banners = JPATH_ROOT . '/images';
 
