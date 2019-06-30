@@ -3,7 +3,7 @@
   <update>
     <name>plg_ajax_jugbanner</name>
     <description>Share banners from a global entry point.</description>
-    <element>plg_ajax_jugbanner</element>
+    <element>jugbanner</element>
     <type>plugin</type>
     <folder>ajax</folder>
     <client>site</client>
