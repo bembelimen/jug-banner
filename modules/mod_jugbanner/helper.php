@@ -133,9 +133,9 @@ class ModJugbannerHelper
 
 			$valid = true;
 
-			if ($params->get('verifyfile', 1))
+			if ($params->get('verifyfile'))
 			{
-				$verify = $http->post(self::$verificationurl, $data);
+				$verify = $http->post(self::$verificationurl, ['jugbanner' => $data]);
 
 				$valid = $verify->code == 200 && $content->code == 200 && hash(static::$hash, $content->body) == $verify->body;
 			}
