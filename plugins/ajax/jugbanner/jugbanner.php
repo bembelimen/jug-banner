@@ -96,7 +96,7 @@ class plgAjaxJugbanner extends CMSPlugin
 		{
 			$model = BaseDatabaseModel::getInstance('Banners', 'BannersModel', ['ignore_request' => true]);
 
-			$model->setState('list.limit', $list_limit);
+			$model->setState('list.limit', 0);
 			$model->setState('filter.published', 1);
 			$model->setState('filter.category_id', $cat_ids);
 
@@ -151,7 +151,7 @@ class plgAjaxJugbanner extends CMSPlugin
 			}
 		}
 
-		return $result;
+		return array_slice($result, 0, $list_limit);
 	}
 
 	/**
