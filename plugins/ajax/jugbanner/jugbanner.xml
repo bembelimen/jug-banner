@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>benjamin.trenkle@wicked-software.de</authorEmail>
 	<authorUrl>www.wicked-software.de</authorUrl>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 	<description>PLG_AJAX_JUGBANNER_XML_DESCRIPTION</description>
 	<updateservers>
 		<server type="extension" name="plg_ajax_jugbanner">https://raw.githubusercontent.com/bembelimen/jug-banner/joomla.de/updateservers/plg_ajax_jugbanner.xml</server>
