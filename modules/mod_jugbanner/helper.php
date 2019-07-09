@@ -117,8 +117,7 @@ class ModJugbannerHelper
 
 			switch ($params->get('size'))
 			{
-				case 'large':
-				case 'small':
+				case 'edgewise':
 				case 'squared':
 					$data['size'] = $params->get('size');
 					break;

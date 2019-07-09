@@ -7,7 +7,7 @@
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>benjamin@wicked-software.de</authorEmail>
 	<authorUrl>www.wicked-software.de</authorUrl>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<description>MOD_JUGBANNER_XML_DESCRIPTION</description>
 	<updateservers>
 		<server type="extension" name="mod_jugbanner">https://raw.githubusercontent.com/bembelimen/jug-banner/joomla.de/updateservers/mod_jugbanner.xml</server>
